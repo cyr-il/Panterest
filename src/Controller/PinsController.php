@@ -6,6 +6,7 @@ use App\Entity\Pin;
 use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,7 +40,7 @@ class PinsController extends AbstractController
     /**
      * @Route("/pin/create", name="pin_create", methods={"GET","POST"})
      */
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em, FlashyNotifier $flashy): Response
 
     {
         $pin = new Pin;
@@ -49,7 +50,8 @@ class PinsController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($pin);
             $em->flush();
-            $this->addFlash('success', 'Votre pin a été crée avec succès !');
+            $flashy->success('Votre pin a été crée avec succès !');
+
             return $this->redirectToRoute('home');
 
         }
@@ -62,7 +64,7 @@ class PinsController extends AbstractController
      /**
      * @Route("/pin/{id<[0-9]+>}/edit", name="pin_edit", methods={"GET","PUT"})
      */
-    public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
+    public function edit(Pin $pin, Request $request, EntityManagerInterface $em, FlashyNotifier $flashy): Response
 
     {
         $form = $this->createForm(PinType::class, $pin, ['method'=> 'PUT']);
@@ -70,7 +72,8 @@ class PinsController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $this->addFlash('success', 'Votre pin a été modifié avec succès !');
+            $flashy->success('Votre pin a été modifié avec succès !');
+
             return $this->redirectToRoute('home');
         }
         
@@ -83,15 +86,14 @@ class PinsController extends AbstractController
       /**
      * @Route("/pin/{id<[0-9]+>}", name="pin_delete", methods="DELETE")
      */
-    public function delete(Pin $pin, EntityManagerInterface $em, Request $request): Response
+    public function delete(Pin $pin, EntityManagerInterface $em, Request $request, FlashyNotifier $flashy): Response
     {
         $data = $request->request->get('csrf_token');
 
         if($this->isCsrfTokenValid('pin_delete_' . $pin->getId(), $data)) {
             $em->remove($pin);
             $em->flush();
-            $this->addFlash('info', 'Votre pin a été supprimé avec succès !');
-
+            $flashy->success('Votre pin a été supprimé avec succès !');
         }
         return $this->redirectToRoute('home');
     }

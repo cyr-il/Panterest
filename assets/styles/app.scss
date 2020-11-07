@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import 'shared/_variables';
+@import "~bootstrap/scss/bootstrap";
+
+
+body {
+    background-color: lightgray;
+}
+
+html, body {
+    font-family: $font , sans-serif;
+}

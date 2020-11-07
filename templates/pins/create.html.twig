@@ -4,8 +4,5 @@
 
 {% block body %}
     <h1>Create Pin</h1>
-    {{ form_start(monFormulaire) }}
-        {{ form_widget(monFormulaire) }}
-        <input class="btn btn-primary" class="btn btn-outline-success" type="submit" value="Submit">
-    {{ form_end(monFormulaire) }}
+    {{include('pins/_form.html.twig', {'submitButtonText': 'Valider'})}}
 {% endblock %}

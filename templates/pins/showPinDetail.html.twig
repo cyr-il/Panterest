@@ -9,6 +9,12 @@
     <p>{{pin.description}}</p>
 </article>
 <button type="button" class="btn btn-warning"><a href="{{path('pin_edit', {id: pin.id})}}">Editer votre pin</a></button>
-{# <button type="button" class="btn btn-danger"><a href="{{path('pin_delete')}}">Supprimer votre pin</a></button> #}
+<button type="button" class="btn btn-danger"><a href="#" onclick="event.preventDefault(); confirm('Êtes vous sûr de vouloir supprimer votre pin ?') && document.getElementById('js-pin-delete-form').submit();">Supprimer votre pin</a></button>
 <a href="{{path('home')}}">Retour page d'accueil</a>
+
+<form id="js-pin-delete-form" action="{{path('pin_delete', {id: pin.id})}}" method="post" style="display:none">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
+    <input type="hidden" name="_method" value="DELETE">
+</form>
+
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,10 +43,7 @@ class PinsController extends AbstractController
 
     {
         $pin = new Pin;
-        $form = $this->createFormBuilder($pin)
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->getForm();
+        $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -62,27 +60,39 @@ class PinsController extends AbstractController
     }
 
      /**
-     * @Route("/pin/{id<[0-9]+>}/edit", name="pin_edit", methods={"GET","POST"})
+     * @Route("/pin/{id<[0-9]+>}/edit", name="pin_edit", methods={"GET","PUT"})
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
 
     {
-        $form = $this->createFormBuilder($pin)
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->getForm();
+        $form = $this->createForm(PinType::class, $pin, ['method'=> 'PUT']);
             
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
-                
-                return $this->redirectToRoute('home');
-            }
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
             
-            return $this->render('pins/edit.html.twig', [
-                'pin' => $pin,
-                'editionForm' => $form->createView()
-            ]);
+            return $this->redirectToRoute('home');
+        }
+        
+        return $this->render('pins/edit.html.twig', [
+            'pin' => $pin,
+            'editionForm' => $form->createView()
+        ]);
+    }
+
+      /**
+     * @Route("/pin/{id<[0-9]+>}/delete", name="pin_delete", methods="DELETE")
+     */
+    public function delete(Pin $pin, EntityManagerInterface $em, Request $request): Response
+    {
+        $data = $request->request->get('csrf_token');
+
+        if($this->isCsrfTokenValid('pin_delete_' . $pin->getId(), $data)) {
+            $em->remove($pin);
+            $em->flush();
+
+        }
+        return $this->redirectToRoute('home');
     }
 
 }

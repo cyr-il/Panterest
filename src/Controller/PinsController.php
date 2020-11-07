@@ -49,7 +49,7 @@ class PinsController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($pin);
             $em->flush();
-
+            $this->addFlash('success', 'Votre pin a été crée avec succès !');
             return $this->redirectToRoute('home');
 
         }
@@ -70,7 +70,7 @@ class PinsController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            
+            $this->addFlash('success', 'Votre pin a été modifié avec succès !');
             return $this->redirectToRoute('home');
         }
         
@@ -90,6 +90,7 @@ class PinsController extends AbstractController
         if($this->isCsrfTokenValid('pin_delete_' . $pin->getId(), $data)) {
             $em->remove($pin);
             $em->flush();
+            $this->addFlash('info', 'Votre pin a été supprimé avec succès !');
 
         }
         return $this->redirectToRoute('home');

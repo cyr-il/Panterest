@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Editer votre pin #" ~ pin.id %}
+
+{% block body %}
+    <h1>Editez votre Pin #{{pin.id}}</h1>
+    {{ form_start(editionForm) }}
+        {{ form_widget(editionForm) }}
+        <input class="btn btn-primary" class="btn btn-outline-success" type="submit" value="Submit">
+    {{ form_end(editionForm) }}
+{% endblock %}

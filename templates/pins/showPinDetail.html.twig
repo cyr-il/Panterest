@@ -7,7 +7,8 @@
 <article>
     <h2>{{pin.title}}</h2>
     <p>{{pin.description}}</p>
-    <p>{{pin.createdAt}}</p>
 </article>
+<button type="button" class="btn btn-warning"><a href="{{path('pin_edit')}}">Editer votre pin</a></button>
+<button type="button" class="btn btn-danger"><a href="{{path('pin_delete')}}">Supprimer votre pin</a></button>
 <a href="{{path('home')}}">Retour page d'accueil</a>
 {% endblock %}

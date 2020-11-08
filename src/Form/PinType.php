@@ -16,11 +16,12 @@ class PinType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image (JPG ou PNG)',
+                'label' => 'Image (JPG ou PNG) max : 8M',
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'effacer l\'image',
                 'download_uri' => true,
+                'imagine_pattern' => 'square_thumbnail_small'
             ])
         ;
     }

@@ -4,7 +4,7 @@
 
 
 body {
-    background-color: lightgray;
+    background-color: grayscale($color: #000000);
 }
 
 html, body {
@@ -20,4 +20,12 @@ html, body {
     @extend .rounded;
     @extend .shadow;
     @extend .img-thumbnail;
+}
+
+.pin img{
+    transition: transform 0.3s ease-out;
+    &:hover {
+        transform: scale(1.075);
+    }
+
 }

@@ -3,12 +3,25 @@
 {% block title "find all the best pins on earth" %}
 
 {% block body %}
-    <h1>{{ pluralize(pins|length, 'Pin')}}</h1>
-    {% for pin in pins %}
-        <article>
-            <h2><a href="{{path('show_pin', {id: pin.id})}}">{{pin.title}}</a></h2>
-            <p>{{pin.description|u.truncate(100, '...', true)}}</p>
-            <p>Crée {{pin.createdAt|ago}}
-        </article>
-    {% endfor %}
+    {% if pins|length > 0 %}
+        <h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Pin')}}</h1>
+        {% for row in pins|batch(3) %}
+            <div class="row mb-5">
+            {% for pin in row %}
+                <div class="col-md-4">
+                    <article class="pin bg-white rounded shadow">
+                        <div class="mw-100 overflow-hidden">
+                            <img src="{{ (pin.picture ? vich_uploader_asset(pin): asset('images/300.png')) | imagine_filter('square_thumbnail_medium')}}" alt="{{ pin.title }}" class="w-100 rounded-top" />
+                        </div>
+                        <h2 class="pl-3 mt-3 text-center"><a href="{{path('show_pin', {id: pin.id})}}" class="text-muted text-decoration-none text-secondary">{{pin.title}}</a></h2>
+                        <p class="text-center">{{pin.description|u.truncate(40, '...', true)}}</p>
+                        <p class="pl-3 pb-3 text-muted text-center"><small>Crée {{pin.createdAt|ago}} par USER</small></p>
+                    </article>
+                </div>
+            {% endfor %} 
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="h1 mt-5 text-center">Pas encore de pins crée. <a href="{{path('pin_create')}}">Soyez le premier !</a></p>
+    {% endif %}
 {% endblock %}

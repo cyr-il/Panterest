@@ -11,7 +11,7 @@
                 <img src="{{ (pin.picture ? vich_uploader_asset(pin): asset('build/images/300.png')) | imagine_filter('square_thumbnail_medium')}}" alt="{{ pin.title }}" class="w-100 rounded-top" />
             </div>
             <h2 class="pl-3 mt-3">{{pin.title|capitalize}}</h2>
-            <p class="pl-3 pb-3 text-muted"><small>Crée <time datetime="{{pin.createdAt|date('Y-m-d H:i:s')}}">{{pin.createdAt|ago }}</time> par USER</small></p>
+            <p class="pl-3 pb-3 text-muted"><small>Crée <time datetime="{{pin.createdAt|date('Y-m-d H:i:s')}}">{{pin.createdAt|ago}} par {{pin.user.firstName}} {{pin.user.lastName}}</small></p>
             <p class="pl-3 pb-3">{{pin.description}}</p>
         
         <div class="text-center">

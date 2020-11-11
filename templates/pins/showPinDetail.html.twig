@@ -10,17 +10,19 @@
             <div class="mw-100 overflow-hidden">
                 <img src="{{ (pin.picture ? vich_uploader_asset(pin): asset('build/images/300.png')) | imagine_filter('square_thumbnail_medium')}}" alt="{{ pin.title }}" class="w-100 rounded-top" />
             </div>
-            <h2 class="pl-3 mt-3">{{pin.title}}</h2>
-            <p class="pl-3 pb-3 text-muted"><small>Crée {{pin.createdAt|ago}} par USER</small></p>
-        </article>
+            <h2 class="pl-3 mt-3">{{pin.title|capitalize}}</h2>
+            <p class="pl-3 pb-3 text-muted"><small>Crée <time datetime="{{pin.createdAt|date('Y-m-d H:i:s')}}">{{pin.createdAt|ago }}</time> par USER</small></p>
+            <p class="pl-3 pb-3">{{pin.description}}</p>
+        
         <div class="text-center">
-            <button type="button" class="btn btn-warning"><a href="{{path('pin_edit', {id: pin.id})}}" class="text-decoration-none">Editer votre pin</a></button>
-            <button type="button" class="btn btn-danger"><a href="#" onclick="event.preventDefault(); confirm('Êtes vous sûr de vouloir supprimer votre pin ?') && document.getElementById('js-pin-delete-form').submit();" class="text-decoration-none">Supprimer votre pin</a></button>
+            <button type="button" class="btn btn-warning mb-3"><a href="{{path('pin_edit', {id: pin.id})}}" class="text-decoration-none">Editer votre pin</a></button>
+            <button type="button" class="btn btn-danger mb-3"><a href="#" onclick="event.preventDefault(); confirm('Êtes vous sûr de vouloir supprimer votre pin ?') && document.getElementById('js-pin-delete-form').submit();" class="text-decoration-none">Supprimer votre pin</a></button>
         </div>
         <form id="js-pin-delete-form" action="{{path('pin_delete', {id: pin.id})}}" method="post" style="display:none">
             <input type="hidden" name="csrf_token" value="{{ csrf_token('pin_delete_' ~ pin.id) }}">
             <input type="hidden" name="_method" value="DELETE">
         </form>
+        </article>
     </div>
 </div>
 

@@ -6,6 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+            {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('home')}}">Accueil</a>
                 </li>
@@ -16,8 +17,16 @@
                     <a class="nav-link" href="#">Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Déconnexion</a>
+                    <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
                 </li>
+            {% else %}
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+                </li>
+            {% endif %}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un pin" aria-label="Search">

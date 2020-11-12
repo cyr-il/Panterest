@@ -12,7 +12,7 @@
             </div>
             <h2 class="pl-3 mt-3">{{pin.title|capitalize}}</h2>
             <p class="pl-3 pb-3 text-muted"><small>Crée <time datetime="{{pin.createdAt|date('Y-m-d H:i:s')}}">{{pin.createdAt|ago}} par {{pin.user.firstName}} {{pin.user.lastName}}</small></p>
-            <p class="pl-3 pb-3">{{pin.description}}</p>
+            <p class="pl-3 pb-3 text-break pr-3">{{pin.description}}</p>
         
         <div class="text-center">
             <button type="button" class="btn btn-warning mb-3"><a href="{{path('pin_edit', {id: pin.id})}}" class="text-decoration-none">Editer votre pin</a></button>

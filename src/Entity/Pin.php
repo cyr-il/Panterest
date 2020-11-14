@@ -129,4 +129,5 @@ class Pin
 
         return $this;
     }
+
 }

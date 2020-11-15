@@ -51,7 +51,7 @@ class PinsController extends AbstractController
             $pin->setUser($this->getUser());
             $em->persist($pin);
             $em->flush();
-            $flashy->success('Votre pin a été crée avec succès !');
+            $this->addFlash('success', 'Votre pin a été crée avec succès !');
 
             return $this->redirectToRoute('home');
 
@@ -73,7 +73,7 @@ class PinsController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $flashy->success('Votre pin a été modifié avec succès !');
+            $this->addFlash('success', 'Votre pin a été modifié avec succès !');
 
             return $this->redirectToRoute('home');
         }
@@ -84,9 +84,9 @@ class PinsController extends AbstractController
         ]);
     }
 
-      /**
-     * @Route("/pin/{id<[0-9]+>}", name="pin_delete", methods="DELETE")
-     */
+    /**
+    * @Route("/pin/{id<[0-9]+>}", name="pin_delete", methods="DELETE")
+    */
     public function delete(Pin $pin, EntityManagerInterface $em, Request $request, FlashyNotifier $flashy): Response
     {
         $data = $request->request->get('csrf_token');
@@ -94,7 +94,7 @@ class PinsController extends AbstractController
         if($this->isCsrfTokenValid('pin_delete_' . $pin->getId(), $data)) {
             $em->remove($pin);
             $em->flush();
-            $flashy->success('Votre pin a été supprimé avec succès !');
+            $this->addFlash('success', 'Votre pin a été supprimé avec succès !');
         }
         return $this->redirectToRoute('home');
     }

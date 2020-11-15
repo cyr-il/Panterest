@@ -16,7 +16,13 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app')}}
         <script src="//code.jquery.com/jquery.js"></script>
-        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+        <script>
+        $("document").ready(function(){
+            setTimeout(function(){
+            $("div.alert").remove();
+            }, 2000 ); // 5 secs
+        });
+        </script>
     {% endblock %}
         {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     </body>

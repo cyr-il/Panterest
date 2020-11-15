@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         if ($this->getUser()) {
-            $this->addFlash('error', 'Vous êtes déjà enregistré');
+            $this->addFlash('danger', 'Vous êtes déjà enregistré');
             return $this->redirectToRoute('home');
         }
 
@@ -61,7 +61,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
+            $this->addFlash('success', 'Un email vient de vous être envoyé !');
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

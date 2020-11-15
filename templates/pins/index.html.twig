@@ -3,10 +3,12 @@
 {% block title "find all the best pins on earth" %}
 
 {% block body %}
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success text-center">
-        {{ message }}
-    </div>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endfor %}
     {% if pins|length > 0 %}
         <h1 class="mb-4 text-muted text-center">{{ pluralize(pins|length, 'Pin')}}</h1>

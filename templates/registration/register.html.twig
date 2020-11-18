@@ -11,7 +11,7 @@
     <div class="col-md-6 mx-auto mt-5">
         <h1 class="text-center my-5">Inscription</h1>
 
-        {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm, {'attr':{'novalidate': 'novalidate'}}) }}
             {{ form_row(registrationForm.lastname, {
                 label: 'Nom'
             }) }}
@@ -24,7 +24,7 @@
             }) }}
             {{ form_row(registrationForm.agreeTerms) }}
 
-            <button type="submit" class="btn btn-primary btn-block">Valider</button>
+            <button type="submit" class="btn btn-primary btn-block" formnovalidate>Valider</button>
         {{ form_end(registrationForm) }}
         <p class="text-center mt-3 text-muted">Vous avez déjà un compte ? <a href="{{path('app_login')}}">Connectez-vous</a></p>
     </div>

@@ -100,8 +100,8 @@
         "compile": [
             "php bin/console doctrine:schema:update --force",
         ],
-        "start": "node src/index.js",
-        "build": "webpack",
+        "start": ["node src/index.js"],
+        "build": ["webpack"],
         "heroku-run-build-script": true
     },
     "conflict": {

@@ -99,8 +99,10 @@
         ],
         "compile": [
             "php bin/console doctrine:schema:update --force",
-            "npm run build"
-        ]
+        ],
+        "start": "node src/index.js",
+        "build": "webpack",
+        "heroku-run-build-script": true
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -99,7 +99,11 @@
         ],
         "compile": [
             "php bin/console doctrine:schema:update --force"
-        ]
+        ],
+        "scripts": {
+            "start": "node src/index.js",
+            "build": "webpack" 
+        }
     },
     "conflict": {
         "symfony/symfony": "*"

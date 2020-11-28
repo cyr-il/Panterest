@@ -23,7 +23,7 @@
                             </div>
                             <h2 class="pl-3 mt-3"><a href="{{path('show_pin', {id: pin.id})}}" class="text-muted text-decoration-none text-secondary">{{pin.title|capitalize}}</a></h2>
                             <p class="pl-3">{{pin.description|u.truncate(20, '...', true)}}</p>
-                            <p class="pl-3 pb-3 text-muted"><small>Crée {{pin.createdAt|ago}} par {{pin.user.firstName}} {{pin.user.lastName}}</small></p>
+                            <p class="pl-3 pb-3 text-muted"><small>Crée {{pin.createdAt|ago}} par <a href="#">{{pin.user.firstName}} {{pin.user.lastName}}</a></small></p>
                         </article>
                     </div>
                 {% endfor %} 
